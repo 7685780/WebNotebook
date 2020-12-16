@@ -11,22 +11,14 @@ pool:
 
 
 variables:
-  dockerId: z921190200@163.com                  # 阿里云 login username
-  namespace: zohnz                              # 阿里云 命名空间
+  dockerId: 15559100969@126.com                  # 阿里云 login username
+  namespace: chenshuai_ghost_rep                              # 阿里云 命名空间
   imageName: webnotebook                        # 阿里云 仓库名称
   registry: registry.cn-hangzhou.aliyuncs.com   # 阿里云 公网地址
   dockerfilepath:  WebNotebook/Dockerfile       # Github Dockerfile相对路径
 
 
 steps:
-- task: CmdLine@2
-  inputs:
-    script: |
-      echo ready to execute command
-      ls
-      sed -i 's/{Writable}/$(Writable)/g' WebNotebook/appsettings.Production.json
-      sed -i 's/{ReadOnly}/$(ReadOnly)/g' WebNotebook/appsettings.Production.json
-      echo command executed
 - script: |
     docker build -f $(dockerfilepath) -t $(imageName) .
     docker login -u $(dockerId) -p $(pwd) $(registry)
